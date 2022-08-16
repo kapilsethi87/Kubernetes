@@ -1,0 +1,40 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx-qarec"
+    nginx.ingress.kubernetes.io/secure-backends: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/enable-access-log: "false"
+    nginx.ingress.kubernetes.io/proxy-body-size: 8000m
+  name: nginx-registry-rule-rec-qa
+  namespace: kube-system
+spec:
+  tls:
+    - hosts:
+      - rec-qa-registry.monsterindia.com
+      secretName: wildmonsterindia2022   ##ingress-nginx-secret-tls-wildcard
+  rules:
+  - host: rec-qa-registry.monsterindia.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: kube-registry
+          servicePort: 443
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx-qarec"
+  name: nginx-rec-nm-jenkins-rule
+spec:
+  rules:
+  - host: recqa-nm-jenkins.monsterindia.com
+    http:
+      paths:
+      - backend:
+          serviceName: jenkins
+          servicePort: 8080

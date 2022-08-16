@@ -1,0 +1,46 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: nginx-configuration-qarec
+  namespace: ingress-nginx
+  labels:
+    app.kubernetes.io/name: ingress-nginx-qarec
+    app.kubernetes.io/part-of: ingress-nginx-qarec
+data:
+  proxy-connect-timeout: "60"
+  proxy-read-timeout: "300"
+  proxy-send-imeout: "300"
+  ssl-redirect: "false"
+  enable-opentracing: "false"
+  ignore-invalid-headers: "false"
+  enable-underscores-in-headers: "true"
+  keep-alive: "60"
+  keep-alive-requests: "500"
+  server-tokens: "false"
+  proxy-body-size: "50m"
+  client-body-buffer-size: "1m"
+  proxy-buffer-size: "512k"
+  log-format-upstream: '$the_real_ip - [$remote_addr] - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" $request_length $request_time [$proxy_upstream_name] $upstream_addr $upstream_response_length $upstream_response_time $upstream_status $host'
+
+---
+
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: tcp-services-qarec
+  namespace: ingress-nginx
+  labels:
+    app.kubernetes.io/name: ingress-nginx-qarec
+    app.kubernetes.io/part-of: ingress-nginx-qarec
+
+---
+
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: udp-services-qarec
+  namespace: ingress-nginx
+  labels:
+    app.kubernetes.io/name: ingress-nginx-qarec
+    app.kubernetes.io/part-of: ingress-nginx-qarec
+

@@ -1,0 +1,53 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx-qarec"
+  name: nginx-new-qarec-01-qa1-int
+  namespace: qa-application
+spec:
+  tls:
+    - hosts:
+      - rec-int.monsterindia.com
+      secretName: wildmonsterindia2022
+  rules:
+  - host: rec-int.monsterindia.com
+    http:
+      paths:
+      - path: /profile
+        backend:
+          serviceName: search-apis-int
+          servicePort: 80
+
+      - path: /actions
+        backend:
+          serviceName: search-apis-int
+          servicePort: 80
+
+      - path: /v1/actions
+        backend:
+          serviceName: search-apis-int
+          servicePort: 80
+
+      - path: /recruiteractions
+        backend:
+          serviceName: search-apis-int
+          servicePort: 80
+
+      - path: /penguin
+        backend:
+          serviceName: penguin-prod
+          servicePort: 80
+
+
+      - path: /search
+        backend:
+          serviceName: search-apis-int
+          servicePort: 80
+      - path: /action
+        backend:
+          serviceName: search-apis-int
+          servicePort: 80
+
+
+

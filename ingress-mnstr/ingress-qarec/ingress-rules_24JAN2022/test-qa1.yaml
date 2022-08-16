@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx-qarec"
+    nginx.ingress.kubernetes.io/rewrite-target: "/"
+  name: nginx-new-qarec-01-qa-nm-test
+spec:
+  tls:
+    - hosts:
+      - rec-qa-nm.monsterindia.com
+      secretName: wildmonsterindia2021
+  rules:
+  - host: rec-qa-nm.monsterindia.com
+    http:
+      paths:
+      - path: /abc
+        backend:
+          serviceName: example-service
+          servicePort: 8080
+
+

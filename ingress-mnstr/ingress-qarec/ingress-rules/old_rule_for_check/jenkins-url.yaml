@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx-qarec"
+  name: nginx-jenkins-rule
+spec:
+  tls:
+    - hosts:
+      - jenkins-rec.monsterindia.com
+      secretName: wildmonsterindia2021
+  rules:
+  - host: jenkins-rec.monsterindia.com
+    http:
+      paths:
+      - backend:
+          serviceName: jenkins
+          servicePort: 8080
+

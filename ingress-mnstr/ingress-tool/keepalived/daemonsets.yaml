@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: kube-keepalived-vip
+  name: kube-keepalived-vip
+spec:
+  selector:
+    matchLabels:
+      app: kube-keepalived-vip
+  template:
+    metadata:
+      labels:
+        app: kube-keepalived-vip
+    spec:
+      hostNetwork: true
+      serviceAccount: kube-keepalived-vip
+      containers:
+        - image: aledbf/kube-keepalived-vip:0.27
+          name: kube-keepalived-vip
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - mountPath: /lib/modules
+              name: modules
+              readOnly: true
+            - mountPath: /dev
+              name: dev
+          # use downward API
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          # to use unicast
+          args:
+          - --services-configmap=default/kube-keepalived--configmap
+          # unicast uses the ip of the nodes instead of multicast
+          # this is useful if running in cloud providers (like AWS)
+          - --use-unicast=true
+          - --v=1
+          # vrrp version can be set to 2.  Default 3.
+          #- --vrrp-version=2
+      volumes:
+        - name: modules
+          hostPath:
+            path: /lib/modules
+        - name: dev
+          hostPath:
+            path: /dev
+#      nodeSelector:
+#        service: "keepalived"

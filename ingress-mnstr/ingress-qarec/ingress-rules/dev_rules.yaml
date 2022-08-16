@@ -1,0 +1,536 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx-qarec"
+  name: nginx-new-qarec-01-int
+  namespace: qa-application
+spec:
+  tls:
+    - hosts:
+      - rec-int-nm.monsterindia.com
+      secretName: wildmonsterindia2022
+  rules:
+  - host: rec-int-nm.monsterindia.com
+    http:
+      paths:
+      - path: /profile
+        backend:
+          serviceName: search-apis-int
+          servicePort: 80
+
+      - path: /actions
+        backend:
+          serviceName: search-apis-int
+          servicePort: 80
+
+
+      - path: /search
+        backend:
+          serviceName: search-apis-int
+          servicePort: 80
+      - path: /action
+        backend:
+          serviceName: search-apis-int
+          servicePort: 80
+
+      - path: /multi-search
+        backend:
+          serviceName: search-apis-int
+          servicePort: 80
+
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx-qarec"
+    nginx.ingress.kubernetes.io/rewrite-target: "/"
+  name: nginx-new-qarec-01-dev
+  namespace: qa-application
+spec:
+  tls:
+    - hosts:
+      - rec-dev-nm.monsterindia.com
+      secretName: wildmonsterindia2022
+  rules:
+  - host: rec-dev-nm.monsterindia.com
+    http:
+      paths:
+      - path: /config
+        backend:
+          serviceName: recruiter4-config-dev
+          servicePort: 80
+
+
+      - path: /discovery
+        backend:
+          serviceName: recruiter4-discovery-dev
+          servicePort: 80
+
+
+      - path: /gateway
+        backend:
+          serviceName: recruiter4-gateway-dev
+          servicePort: 80
+
+      - path: /authorization-server
+        backend:
+          serviceName: recruiter4-authorization-server-dev
+          servicePort: 80
+
+
+      - path: /search-service
+        backend:
+          serviceName: recruiter4-search-service-dev
+          servicePort: 80
+
+      - path: /hoatzin
+        backend:
+          serviceName: recruiter4-hoatzin-dev
+          servicePort: 80
+
+      - path: /recruiter-actions
+        backend:
+          serviceName: recruiter4-actions-dev
+          servicePort: 80
+
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx-qarec"
+  name: nginx-new-qarec-01-commonservices-dev
+  namespace: qa-application
+spec:
+  tls:
+    - hosts:
+      - rec-dev-nm.monsterindia.com
+      secretName: wildmonsterindia2022
+  rules:
+  - host: rec-dev-nm.monsterindia.com
+    http:
+      paths:
+      - path: /recruiter4commonservices
+        backend:
+          serviceName: recruiter4-commonservices-dev
+          servicePort: 80
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx-qarec"
+  name: nginx-new-qarec-01-dev-pigeon
+  namespace: qa-application
+spec:
+  tls:
+    - hosts:
+      - rec-dev-nm.monsterindia.com
+      secretName: wildmonsterindia2022
+  rules:
+  - host: rec-dev-nm.monsterindia.com
+    http:
+      paths:
+
+      - path: /pigeon
+        backend:
+          serviceName: pigeon-rec4-dev
+          servicePort: 80
+
+      - path: /pigeon-sendmail
+        backend:
+          serviceName: pigeon-rec4-send-mail-dev
+          servicePort: 80
+
+      - path: /parrot
+        backend:
+          serviceName: parrot-rec4-dev
+          servicePort: 80
+
+      - path: /parrot-sendmail
+        backend:
+          serviceName: parrot-rec4-send-mail-dev
+          servicePort: 80
+
+      - path: /penguin
+        backend:
+          serviceName: penguin-rec4-dev
+          servicePort: 80
+
+
+      - path: /v4/managejobposting
+        backend:
+          serviceName: recruiter4-managejobposting-ui-dev
+          servicePort: 80
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx-qarec"
+    nginx.ingress.kubernetes.io/rewrite-target: "/eureka/"
+  name: nginx-new-qarec-01-dev-descovery
+  namespace: qa-application
+spec:
+  tls:
+    - hosts:
+      - rec-dev-nm.monsterindia.com
+      secretName: wildmonsterindia2022
+  rules:
+  - host: rec-dev-nm.monsterindia.com
+    http:
+      paths:
+
+
+      - path: /eureka
+        backend:
+          serviceName: recruiter4-discovery-dev
+          servicePort: 80
+
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx-qarec"
+  name: nginx-new-qarec-01-dev-newjobpostig-ui
+  namespace: qa-application
+spec:
+  tls:
+    - hosts:
+      - rec-ui-dev-nm.monsterindia.com
+      secretName: wildmonsterindia2022
+  rules:
+  - host: rec-ui-dev-nm.monsterindia.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: recruiter4-newjobposting-ui-dev
+          servicePort: 80
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx-qarec"
+  name: nginx-new-qarec-01-dev-config
+  namespace: qa-application
+spec:
+  tls:
+    - hosts:
+      - rec-dev-config-nm.monsterindia.com
+      secretName: wildmonsterindia2022
+  rules:
+  - host: rec-dev-config-nm.monsterindia.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: recruiter4-config-dev
+          servicePort: 80
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx-qarec"
+  name: nginx-new-qarec-01-dev-auth
+  namespace: qa-application
+spec:
+  tls:
+    - hosts:
+      - rec-dev-auth-nm.monsterindia.com
+      secretName: wildmonsterindia2022
+  rules:
+  - host: rec-dev-auth-nm.monsterindia.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: recruiter4-authorization-server-dev
+          servicePort: 80
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx-qarec"
+  name: nginx-new-qarec-01-dev-discovery
+  namespace: qa-application
+spec:
+  tls:
+    - hosts:
+      - rec-dev-discovery-nm.monsterindia.com
+      secretName: wildmonsterindia2022
+  rules:
+  - host: rec-dev-discovery-nm.monsterindia.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: recruiter4-discovery-dev
+          servicePort: 80
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx-qarec"
+  name: nginx-new-qarec-01-dev-gateway
+  namespace: qa-application
+spec:
+  tls:
+    - hosts:
+      - rec-dev-gateway-nm.monsterindia.com
+      secretName: wildmonsterindia2022
+  rules:
+  - host: rec-dev-gateway-nm.monsterindia.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: recruiter4-gateway-dev
+          servicePort: 80
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx-qarec"
+  name: nginx-new-qarec-01-dev-search-service
+  namespace: qa-application
+spec:
+  tls:
+    - hosts:
+      - rec-dev-search-service-nm.monsterindia.com
+      secretName: wildmonsterindia2022
+  rules:
+  - host: rec-dev-search-service-nm.monsterindia.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: recruiter4-search-service-dev
+          servicePort: 80
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx-qarec"
+  name: nginx-new-qarec-01-dev-master-data
+  namespace: qa-application
+spec:
+  tls:
+    - hosts:
+      - rec-dev-masterdata-nm.monsterindia.com
+      secretName: wildmonsterindia2022
+  rules:
+  - host: rec-dev-masterdata-nm.monsterindia.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: recruiter4-masterdata-service-dev
+          servicePort: 80
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx-qarec"
+  name: nginx-new-qarec-01-dev-jobposting
+  namespace: qa-application
+spec:
+  tls:
+    - hosts:
+      - rec-dev-jobposting-nm.monsterindia.com
+      secretName: wildmonsterindia2022
+  rules:
+  - host: rec-dev-jobposting-nm.monsterindia.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: recruiter4-jobposting-service-dev
+          servicePort: 80
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx-qarec"
+  name: nginx-new-qarec-01-dev-mjp
+  namespace: qa-application
+spec:
+  tls:
+    - hosts:
+      - rec-dev-mjp-nm.monsterindia.com
+      secretName: wildmonsterindia2022
+  rules:
+  - host: rec-dev-mjp-nm.monsterindia.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: recruiter4-managejobposting-dev
+          servicePort: 80
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx-qarec"
+  name: nginx-new-qarec-01-dev-questionnaire
+  namespace: qa-application
+spec:
+  tls:
+    - hosts:
+      -  rec-dev-questionnaire-nm.monsterindia.com
+      secretName: wildmonsterindia2022
+  rules:
+  - host:  rec-dev-questionnaire-nm.monsterindia.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: recruiter4-questionnaire-service-dev
+          servicePort: 80
+
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx-qarec"
+  name: nginx-new-qarec-01-other-dev-rules
+  namespace: qa-application
+spec:
+  tls:
+    - hosts:
+      - rec-dev-nm.monsterindia.com
+      secretName: wildmonsterindia2022
+  rules:
+  - host: rec-dev-nm.monsterindia.com
+    http:
+      paths:
+      - path: /sentinel
+        backend:
+          serviceName: recruiter4-sentinel-dev
+          servicePort: 80
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx-qarec"
+    nginx.ingress.kubernetes.io/rewrite-target: "/recruiter-srp"
+  name: nginx-new-qarec-01-dev-recuiter-srp
+  namespace: qa-application
+spec:
+  tls:
+    - hosts:
+      - rec-dev-nm.monsterindia.com
+      secretName: wildmonsterindia2022
+  rules:
+  - host: rec-dev-nm.monsterindia.com
+    http:
+      paths:
+      - path: /v4/recruiter
+        backend:
+          serviceName: recruiter4-recruitersrp-v4-dev
+          servicePort: 80
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx-qarec"
+  name: nginx-new-qarec-01-dashboard-apis-dev-rules
+  namespace: qa-application
+spec:
+  tls:
+    - hosts:
+      - rec-dev-nm.monsterindia.com
+      secretName: wildmonsterindia2022
+  rules:
+  - host: rec-dev-nm.monsterindia.com
+    http:
+      paths:
+      - path: /dashapi
+        backend:
+          serviceName: dashboard-apis-v4-dev
+          servicePort: 80
+
+      - path: /v4/dashboard
+        backend:
+          serviceName: recruiter4-dashboard-dev
+          servicePort: 80
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx-qarec"
+  name: nginx-new-qarec-01-dev-jobposting-cron
+  namespace: qa-application
+spec:
+  tls:
+    - hosts:
+      - rec-dev-cron-jobposting-nm.monsterindia.com
+      secretName: wildmonsterindia2022
+  rules:
+  - host: rec-dev-cron-jobposting-nm.monsterindia.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: recruiter4-jobposting-cron-jobs-dev
+          servicePort: 80
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx-qarec"
+    nginx.ingress.kubernetes.io/rewrite-target: "/"
+  name: nginx-new-qarec-dev-search-synonyms
+  namespace: qa-application
+spec:
+  tls:
+    - hosts:
+      - rec-dev-nm.monsterindia.com
+      secretName: wildmonsterindia2022
+  rules:
+  - host: rec-dev-nm.monsterindia.com
+    http:
+      paths:
+      - path: /synonyms
+        backend:
+          serviceName: search-synonyms-dev
+          servicePort: 80
+
+      - path: /socialjobsads
+        backend:
+          serviceName: socialjobsads-dev
+          servicePort: 80
+
+      - path: /polaris
+        backend:
+          serviceName: polaris-dev
+          servicePort: 80

@@ -1,0 +1,22 @@
+#DEVSESOPS-1122
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx-qarec"
+    nginx.ingress.kubernetes.io/rewrite-target: "/"
+  name: nginx-new-qarec-01-recruiter4-dashboard-dev-rules
+  namespace: qa-application
+spec:
+  tls:
+    - hosts:
+      - rec-dev.monsterindia.com
+      secretName: wildmonsterindia2021
+  rules:
+  - host: rec-dev.monsterindia.com
+    http:
+      paths:
+      - path: /dashboard
+        backend:
+          serviceName: recruiter4-dashboard-dev
+          servicePort: 8080
